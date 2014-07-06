@@ -17,6 +17,13 @@ C
 gccを使用してビルドする
 
     % gcc recipe.c -o recipe
+
+プログラムの使用方法
+
+    % ./recipe [ファイル名]
+
+プログラムの実行
+
     % ./recipe recipe-data.txt
     オムライス
     親子丼
