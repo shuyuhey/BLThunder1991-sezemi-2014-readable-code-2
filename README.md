@@ -2,27 +2,22 @@
 
 C
 
-# ビルド方法
+# README.md
+現状満たしている仕様: 仕様5まで
 
-## 仕様1
+## ファイルフォーマット recipe-data.txt
+
+    % cat recipe-data.txt
+    オムライス
+    親子丼
+    杏仁豆腐
+
+
+## プログラムのコンパイルと実行
 gccを使用してビルドする
 
-1. % gcc recipe.c -o recipe
-2. % ./recipe
-
-## 仕様2
-このファイルを参照
-
-## 仕様3
-
-### ファイルフォーマット recipe-data.txt
-   % cat recipe-data.txt
-
-   オムライス
-
-### プログラムのコンパイルと実行
-   % gcc recipe.c -o recipe
-
-   % ./recipe recipe-data.txt
-
-   オムライス
+    % gcc recipe.c -o recipe
+    % ./recipe recipe-data.txt
+    オムライス
+    親子丼
+    杏仁豆腐
