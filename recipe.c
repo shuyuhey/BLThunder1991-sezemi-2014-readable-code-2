@@ -6,7 +6,6 @@ int main (int argc, char* argv[]){
 
   /* Usageの表示 */
   if (argc < 2){
-
     fprintf (stderr, "Usage:recipe [file_name]\n");
     return -1;
   }
@@ -14,7 +13,6 @@ int main (int argc, char* argv[]){
   /* ファイルを開く */
   char *recipe_file_path = argv[1];
   if ((recipe_fp = fopen(recipe_file_path , "r")) == NULL){
-
     fprintf (stderr, "ファイルが開けません\n");
     return -1;
   }
@@ -25,6 +23,7 @@ int main (int argc, char* argv[]){
   while (fscanf (recipe_fp, "%s", recipe_line) != EOF){
 
     if( strlen(recipe_line) == 0) continue;
+
     printf ("%d: %s\n", recipe_id, recipe_line);
     recipe_id++;
   }
