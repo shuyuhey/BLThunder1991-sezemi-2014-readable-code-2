@@ -3,28 +3,33 @@
 C
 
 # プログラムの説明
-現状満たしている仕様: 仕様5まで
+現状満たしている仕様: 仕様6まで
 
 ## ファイルフォーマット recipe-data.txt
 
-    % cat recipe-data.txt
-    オムライス
-    親子丼
-    杏仁豆腐
-
+```sh
+% cat recipe-data.txt
+オムライス
+親子丼
+杏仁豆腐
+```
 
 ## プログラムのコンパイルと実行
 gccを使用してビルドする
 
-    % gcc recipe.c -o recipe
+```sh
+% gcc recipe.c -o recipe
+```
 
 プログラムの使用方法
-
-    % ./recipe [ファイル名]
+```sh
+% ./recipe ファイル名 [レシピID（オプション）]
+```
 
 プログラムの実行
-
-    % ./recipe recipe-data.txt
-    オムライス
-    親子丼
-    杏仁豆腐
+```sh
+% ./recipe recipe-data.txt
+0: オムライス
+1: 親子丼
+2: 杏仁豆腐
+```
