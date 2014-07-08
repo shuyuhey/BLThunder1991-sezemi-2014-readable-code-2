@@ -6,7 +6,7 @@
 const int MAX_BUFFERLINE = 256;
 
 char *strcpy_with_alloc(char *src_str) {
-  char *dst_str = (char *)malloc(sizeof(char) * strlen(src_str));
+  char *dst_str = (char *)malloc(sizeof(char) * (strlen(src_str) + 1));
   sprintf(dst_str, "%s", src_str);
   return dst_str;
 }
