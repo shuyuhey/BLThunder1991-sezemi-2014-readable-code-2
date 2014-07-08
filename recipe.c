@@ -23,6 +23,7 @@ Recipe *create_Recipe(int id, char *name ,char *url) {
 
 void destroy_Recipe(Recipe *recipe){
   free(recipe->name);
+  free(recipe->url);
   free(recipe);
 }
 
@@ -110,6 +111,7 @@ User *create_User(char *name, RecipeList *list) {
 }
 
 void destroy_User(User *user) {
+  free(user->name);
   free(user);
 }
 
