@@ -18,7 +18,7 @@ C
 gccを使用してビルドする
 
 ```sh
-% gcc recipe.c -o recipe
+% gcc -std=c99 recipe.c -o recipe
 ```
 
 プログラムの使用方法
