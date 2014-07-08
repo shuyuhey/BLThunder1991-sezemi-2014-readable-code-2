@@ -51,8 +51,7 @@ void add_recipe_to_RecipeList(RecipeList *list, Recipe *recipe) {
   size_t new_size = list->size + 1;
   Recipe **new_list = (Recipe **)malloc(sizeof(Recipe *) * new_size);
 
-  int i;
-  for (i = 0; i < list->size; i++) {
+  for (int i = 0; i < list->size; i++) {
     new_list[i] = list->list[i];
   }
   new_list[new_size - 1] = recipe;
@@ -67,6 +66,7 @@ void open_RecipeList(RecipeList *list, char *path) {
   /* ファイルを開く */
   if ((fp = fopen(path , "r")) == NULL){
     fprintf (stderr, "ファイルが開けません\n");
+    fclose(fp);
     exit(EXIT_FAILURE);
   }
 
@@ -82,6 +82,7 @@ void open_RecipeList(RecipeList *list, char *path) {
     Recipe *recipe = create_Recipe(id, name, url);
     add_recipe_to_RecipeList(list, recipe);
   }
+  fclose(fp);
 }
 
 void print_RecipeList(RecipeList *list) {
@@ -99,27 +100,60 @@ void print_target_recipe_RecipeList(RecipeList *list, int id){
   }
 }
 
+User *create_User(char *name, RecipeList *list) {
+  User *instance = (User *)malloc(sizeof(User));
+
+  instance->name = strcpy_with_alloc(name);
+  instance->list = list;
+
+  return instance;
+}
+
+void destroy_User(User *user) {
+  free(user);
+}
+
+void print_name_User(User *user) {
+  printf("ユーザ名: %s\n", user->name);
+}
+
+void print_recipe_list_User(User *user) {
+  print_RecipeList(user->list);
+}
+
+void print_target_recipe_User(User *user, int id) {
+  print_target_recipe_RecipeList(user->list, id);
+}
+
 void usage(int argc, char *argv[]) {
   /* 引数の処理 */
-  if (argc < 2){
-    fprintf ( stderr, "Usage:%s file_name [recipe_id]\n", argv[0]);
+  if (argc < 3){
+    fprintf ( stderr, "Usage:%s user_name file_name [recipe_id]\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 }
 
 int main (int argc, char* argv[]){
-  usage(argc, argv);
-  char *recipe_path = argv[1];
-  int recipe_id = argc > 2 ? atoi(argv[2]) : -1;
+  usage(argc, argv);  /* Usageチェック */
+
+  char *recipe_path = argv[2];
+  int recipe_id = argc > 3 ? atoi(argv[3]) : -1;
+  char *user_name = argv[1];
+
 
   RecipeList *recipe_list = create_RecipeList();
   open_RecipeList(recipe_list, recipe_path);
+
+  User *user = create_User(user_name, recipe_list);
+
+  print_name_User(user);
   if(recipe_id == -1) {
-    print_RecipeList(recipe_list);
+    print_recipe_list_User(user);
   }else {
-    print_target_recipe_RecipeList(recipe_list, recipe_id);
+    print_target_recipe_User(user, recipe_id);
   }
 
   destroy_RecipeList(recipe_list);
+  destroy_User(user);
   return EXIT_SUCCESS;
 }

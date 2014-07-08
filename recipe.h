@@ -12,5 +12,10 @@ typedef struct {
   Recipe **list;
 } RecipeList;
 
+typedef struct {
+  char *name;
+  RecipeList *list;
+}User;
+
 
 #endif

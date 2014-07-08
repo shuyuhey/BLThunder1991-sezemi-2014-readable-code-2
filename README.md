@@ -3,7 +3,7 @@
 C
 
 # プログラムの説明
-現状満たしている仕様: 仕様7まで
+現状満たしている仕様: 仕様8まで
 
 ## ファイルフォーマット recipe-data.txt
 
@@ -23,12 +23,13 @@ gccを使用してビルドする
 
 プログラムの使用方法
 ```sh
-% ./recipe ファイル名 [レシピID（オプション）]
+% ./recipe ユーザ名 ファイル名 [レシピID（オプション）]
 ```
 
 プログラムの実行
 ```sh
-% ./recipe recipe-data.txt
+% ./recipe BLThunder recipe-data.txt
+ユーザ名: BLThunder
 0: オムライス http://cookpad.com/recipe/2653946
 1: 親子丼 http://cookpad.com/recipe/2657882
 2: 杏仁豆腐 http://cookpad.com/recipe/2654398
