@@ -3,15 +3,15 @@
 #include <stdlib.h>
 #include "recipe.h"
 
-const int MAX_BUFFERLINE = 256;
+static const int MAX_BUFFERLINE = 256;
 
-char *strcpy_with_alloc(char *src_str) {
+static char *strcpy_with_alloc(char *src_str) {
   char *dst_str = (char *)malloc(sizeof(char) * strlen(src_str));
   sprintf(dst_str, "%s", src_str);
   return dst_str;
 }
 
-Recipe *create_Recipe(int id, char *name ,char *url) {
+static Recipe *create_Recipe(int id, char *name ,char *url) {
   Recipe *instance = (Recipe *)malloc(sizeof(Recipe));
 
   instance->id   = id;
@@ -21,17 +21,17 @@ Recipe *create_Recipe(int id, char *name ,char *url) {
   return instance;
 }
 
-void destroy_Recipe(Recipe *recipe){
+static void destroy_Recipe(Recipe *recipe){
   free(recipe->name);
   free(recipe);
 }
 
-void print_Recipe(Recipe *recipe){
+static void print_Recipe(Recipe *recipe){
   printf("%d: %s %s\n", recipe->id, recipe->name, recipe->url);
 }
 
 
-RecipeList *create_RecipeList() {
+static RecipeList *create_RecipeList() {
   RecipeList *instance = (RecipeList *)malloc (sizeof(RecipeList));
 
   instance->size = 0;
@@ -39,7 +39,7 @@ RecipeList *create_RecipeList() {
   return instance;
 }
 
-void destroy_RecipeList(RecipeList *list){
+static void destroy_RecipeList(RecipeList *list){
   for (int i = 0; i < list->size; i++) {
     destroy_Recipe(list->list[i]);
   }
@@ -47,7 +47,7 @@ void destroy_RecipeList(RecipeList *list){
   free(list);
 }
 
-void add_recipe_to_RecipeList(RecipeList *list, Recipe *recipe) {
+static void add_recipe_to_RecipeList(RecipeList *list, Recipe *recipe) {
   size_t new_size = list->size + 1;
   Recipe **new_list = (Recipe **)malloc(sizeof(Recipe *) * new_size);
 
@@ -61,7 +61,7 @@ void add_recipe_to_RecipeList(RecipeList *list, Recipe *recipe) {
   list->list = new_list;
 }
 
-void open_RecipeList(RecipeList *list, char *path) {
+static void open_RecipeList(RecipeList *list, char *path) {
   FILE *fp;
   /* ファイルを開く */
   if ((fp = fopen(path , "r")) == NULL) {
@@ -85,13 +85,13 @@ void open_RecipeList(RecipeList *list, char *path) {
   fclose(fp);
 }
 
-void print_RecipeList(RecipeList *list) {
+static void print_RecipeList(RecipeList *list) {
   for (int i = 0; i < list->size; i++) {
     print_Recipe(list->list[i]);
   }
 }
 
-void print_target_recipe_RecipeList(RecipeList *list, int id){
+static void print_target_recipe_RecipeList(RecipeList *list, int id){
   for (int i = 0; i < list->size; i++) {
     Recipe *recipe = list->list[i];
     if (recipe->id == id) {
@@ -100,7 +100,7 @@ void print_target_recipe_RecipeList(RecipeList *list, int id){
   }
 }
 
-User *create_User(char *name, RecipeList *list) {
+static User *create_User(char *name, RecipeList *list) {
   User *instance = (User *)malloc(sizeof(User));
 
   instance->name = strcpy_with_alloc(name);
@@ -109,23 +109,23 @@ User *create_User(char *name, RecipeList *list) {
   return instance;
 }
 
-void destroy_User(User *user) {
+static void destroy_User(User *user) {
   free(user);
 }
 
-void print_name_User(User *user) {
+static void print_name_User(User *user) {
   printf("ユーザ名: %s\n", user->name);
 }
 
-void print_recipe_list_User(User *user) {
+static void print_recipe_list_User(User *user) {
   print_RecipeList(user->list);
 }
 
-void print_target_recipe_User(User *user, int id) {
+static void print_target_recipe_User(User *user, int id) {
   print_target_recipe_RecipeList(user->list, id);
 }
 
-void usage(int argc, char *argv[]) {
+static void usage(int argc, char *argv[]) {
   /* 引数の処理 */
   if (argc < 3) {
     fprintf ( stderr, "Usage:%s user_name file_name [recipe_id]\n", argv[0]);
