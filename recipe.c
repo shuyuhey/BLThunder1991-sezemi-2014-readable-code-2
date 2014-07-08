@@ -3,12 +3,20 @@
 #include <stdlib.h>
 #include "recipe.h"
 
-Recipe *create_Recipe(int id, char *name) {
+const int MAX_BUFFERLINE = 256;
+
+char *strcpy_with_alloc(char *src_str) {
+  char *dst_str = (char *)malloc(sizeof(char) * strlen(src_str));
+  sprintf(dst_str, "%s", src_str);
+  return dst_str;
+}
+
+Recipe *create_Recipe(int id, char *name ,char *url) {
   Recipe *instance = (Recipe *)malloc(sizeof(Recipe));
 
-  instance->id = id;
-  instance->name = (char *)malloc(sizeof(char) * strlen(name));
-  sprintf(instance->name, "%s", name);
+  instance->id   = id;
+  instance->name = strcpy_with_alloc(name);
+  instance->url  = strcpy_with_alloc(url);
 
   return instance;
 }
@@ -19,7 +27,7 @@ void destroy_Recipe(Recipe *recipe){
 }
 
 void print_Recipe(Recipe *recipe){
-  printf("%d: %s\n", recipe->id, recipe->name);
+  printf("%d: %s %s\n", recipe->id, recipe->name, recipe->url);
 }
 
 
@@ -62,12 +70,16 @@ void open_RecipeList(RecipeList *list, char *path) {
     exit(EXIT_FAILURE);
   }
 
-  char line[256];  /* 一行の文字数 */
-  while (fscanf (fp, "%s", line) != EOF){
+  char line[MAX_BUFFERLINE];  /* 一行の文字数 */
+  while (fscanf (fp, "%[^\n]\n", line) != EOF){ /* 改行以外を読込 */
     if (strlen(line) == 0) continue;
 
+    char name[MAX_BUFFERLINE];
+    char url[MAX_BUFFERLINE];
+    sscanf(line, "%s %s", name, url);
+
     int id = list->size;
-    Recipe *recipe = create_Recipe(id, line);
+    Recipe *recipe = create_Recipe(id, name, url);
     add_recipe_to_RecipeList(list, recipe);
   }
 }
@@ -107,5 +119,7 @@ int main (int argc, char* argv[]){
   }else {
     print_target_recipe_RecipeList(recipe_list, recipe_id);
   }
+
+  destroy_RecipeList(recipe_list);
   return EXIT_SUCCESS;
 }

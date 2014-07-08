@@ -3,15 +3,15 @@
 C
 
 # プログラムの説明
-現状満たしている仕様: 仕様6まで
+現状満たしている仕様: 仕様7まで
 
 ## ファイルフォーマット recipe-data.txt
 
 ```sh
 % cat recipe-data.txt
-オムライス
-親子丼
-杏仁豆腐
+オムライス http://cookpad.com/recipe/2653946
+親子丼 http://cookpad.com/recipe/2657882
+杏仁豆腐 http://cookpad.com/recipe/2654398
 ```
 
 ## プログラムのコンパイルと実行
@@ -29,7 +29,7 @@ gccを使用してビルドする
 プログラムの実行
 ```sh
 % ./recipe recipe-data.txt
-0: オムライス
-1: 親子丼
-2: 杏仁豆腐
+0: オムライス http://cookpad.com/recipe/2653946
+1: 親子丼 http://cookpad.com/recipe/2657882
+2: 杏仁豆腐 http://cookpad.com/recipe/2654398
 ```
