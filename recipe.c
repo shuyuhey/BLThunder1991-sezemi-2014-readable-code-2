@@ -64,7 +64,7 @@ void add_recipe_to_RecipeList(RecipeList *list, Recipe *recipe) {
 void open_RecipeList(RecipeList *list, char *path) {
   FILE *fp;
   /* ファイルを開く */
-  if ((fp = fopen(path , "r")) == NULL){
+  if ((fp = fopen(path , "r")) == NULL) {
     fprintf (stderr, "ファイルが開けません\n");
     fclose(fp);
     exit(EXIT_FAILURE);
@@ -94,7 +94,7 @@ void print_RecipeList(RecipeList *list) {
 void print_target_recipe_RecipeList(RecipeList *list, int id){
   for (int i = 0; i < list->size; i++) {
     Recipe *recipe = list->list[i];
-    if(recipe->id == id) {
+    if (recipe->id == id) {
       print_Recipe(recipe);
     }
   }
@@ -127,7 +127,7 @@ void print_target_recipe_User(User *user, int id) {
 
 void usage(int argc, char *argv[]) {
   /* 引数の処理 */
-  if (argc < 3){
+  if (argc < 3) {
     fprintf ( stderr, "Usage:%s user_name file_name [recipe_id]\n", argv[0]);
     exit(EXIT_FAILURE);
   }
@@ -147,9 +147,9 @@ int main (int argc, char* argv[]){
   User *user = create_User(user_name, recipe_list);
 
   print_name_User(user);
-  if(recipe_id == -1) {
+  if (recipe_id == -1) {
     print_recipe_list_User(user);
-  }else {
+  } else {
     print_target_recipe_User(user, recipe_id);
   }
 
