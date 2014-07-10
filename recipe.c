@@ -126,7 +126,7 @@ static void print_target_recipe_User(User *user, int id) {
   print_target_recipe_RecipeList(user->list, id);
 }
 
-static void usage(int argc, char *argv[]) {
+static void check_arguments(int argc, char *argv[]) {
   /* 引数の処理 */
   if (argc < 3) {
     fprintf ( stderr, "Usage:%s user_name file_name [recipe_id]\n", argv[0]);
@@ -135,7 +135,7 @@ static void usage(int argc, char *argv[]) {
 }
 
 int main (int argc, char* argv[]){
-  usage(argc, argv);  /* Usageチェック */
+  check_arguments(argc, argv);  /* 引数チェック */
 
   char *recipe_path = argv[2];
   int recipe_id = argc > 3 ? atoi(argv[3]) : -1;
