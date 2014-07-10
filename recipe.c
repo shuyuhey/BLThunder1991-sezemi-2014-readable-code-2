@@ -154,7 +154,7 @@ int main (int argc, char* argv[]){
     print_target_recipe_User(user, recipe_id);
   }
 
-  destroy_RecipeList(recipe_list);
   destroy_User(user);
+  destroy_RecipeList(recipe_list);
   return EXIT_SUCCESS;
 }
