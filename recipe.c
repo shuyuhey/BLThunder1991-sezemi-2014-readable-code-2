@@ -56,7 +56,7 @@ static void add_recipe_to_RecipeList(RecipeList *list, Recipe *recipe) {
     new_list[i] = list->list[i];
   }
   new_list[new_size - 1] = recipe;
-  list->size++;
+  list->size = new_size;
 
   free(list->list);
   list->list = new_list;
@@ -154,7 +154,7 @@ int main (int argc, char* argv[]){
     print_target_recipe_User(user, recipe_id);
   }
 
-  destroy_RecipeList(recipe_list);
   destroy_User(user);
+  destroy_RecipeList(recipe_list);
   return EXIT_SUCCESS;
 }
