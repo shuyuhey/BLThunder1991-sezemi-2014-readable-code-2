@@ -15,7 +15,7 @@ typedef struct {
 typedef struct {
   char *name;
   RecipeList *list;
-}User;
+} User;
 
 
 #endif
